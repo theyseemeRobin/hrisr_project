@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=75.8.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hrisr-project"
+version = "0.1.0"
+description = "Project for integrating knowledge graphs with LLMs for interaction with people suffering from dementia."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "essential_hydra_resolvers@git+https://github.com/theyseemerobin/essential_hydra_resolvers.git",
+    "networkx>=3.5",
+    "google-genai>=1.17.0",
+    "pyvis>=0.3.2",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["dementia_agent.*"]

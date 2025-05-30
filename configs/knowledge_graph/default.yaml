@@ -1,0 +1,10 @@
+defaults:
+    - people@people.john: john
+    - people@people.jane: jane
+    - events@events.morning_coffee: morning_coffee
+
+_target_ : dementia_agent.knowledge_graph.graph.KnowledgeGraph.from_config
+connections:
+    - [jane, participates_in, morning_coffee]
+    - [jane, sister_of, john]
+    - [john, brother_of, jane]
