@@ -28,7 +28,6 @@ class Gemini:
         self.tool_config = None
         self.config = None
         self.chat = None
-        self.initialize_chat()
 
 
     def initialize_chat(self):
@@ -56,16 +55,3 @@ class Gemini:
         """
         response = self.chat.send_message(prompt)
         return response
-
-    def start_conversation(self):
-        print(
-            f"Starting conversation with Gemini model: {self.model}\n"
-            f"To exit the conversation, type 'quit()'"
-        )
-        query = ""
-        while query != "quit()":
-            query = input("You: ")
-            if query == "quit()":
-                break
-            response = self.query(query)
-            print(f"Gemini: {response.text}")

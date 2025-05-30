@@ -1,3 +1,4 @@
+import logging
 from typing import Protocol, runtime_checkable, Any, Union
 
 from dementia_agent.knowledge_graph.graph import retrieve_information
@@ -35,6 +36,7 @@ def register_function(
     Returns:
         GeminiFunction: The function.
     """
+    logging.info(f'Registering {function.__name__}')
     if function.__name__ in __FUNCTION_REGISTRY:
         raise ValueError(f"Function '{function.__name__}' is already registered.")
     __FUNCTION_REGISTRY[function.__name__] = function

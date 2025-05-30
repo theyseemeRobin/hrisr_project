@@ -61,12 +61,3 @@ class KnowledgeGraph:
         for connection in connections:
             kg.connect(*connection)
         return kg
-
-
-# I really want to keep the gemini_functions as simple as possible
-graph: KnowledgeGraph = "Empty graph"
-
-def retrieve_information(description: str):
-    print(f"Accessing graph: {graph}")
-    info = input(f"Enter information for {description}: ")
-    return info

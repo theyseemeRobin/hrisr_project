@@ -1,0 +1,4 @@
+defaults:
+    - knowledge_graph: default
+
+_target_: dementia_agent.knowledge_graph.graph_interface.GraphInterface
