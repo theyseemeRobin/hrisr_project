@@ -1,5 +1,5 @@
 defaults:
-    - gemini: default
-    - graph_interface: default
+    - gemini: gemini
+    - retriever: retriever
 
 _target_: dementia_agent.agent.DementiaAgent

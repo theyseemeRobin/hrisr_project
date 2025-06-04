@@ -1,0 +1,7 @@
+_target_: dementia_agent.knowledge_graph.graph.EventData
+title: Morning Coffee
+location: Living Room
+time: '10:00 AM'
+day: Monday
+description: Drinking coffee in the living room to start the day.
+node_type: ${get_object:dementia_agent.knowledge_graph.graph.NodeType.EVENT}

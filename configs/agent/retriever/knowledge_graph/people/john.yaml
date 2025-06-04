@@ -1,4 +1,4 @@
 _target_: dementia_agent.knowledge_graph.graph.PersonData
 name: John Doe
 age: 35
-
+node_type: ${get_object:dementia_agent.knowledge_graph.graph.NodeType.PERSON}

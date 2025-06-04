@@ -48,8 +48,8 @@ def visualize_graph(
 
     # Add nodes with customizable font size and distinct styles
     for n, attrs in graph._graph.nodes(data=True):
-        payload = attrs['data']
-        ntype = attrs.get('type')
+        payload = attrs['data'].to_dict()
+        ntype = payload.pop('node_type')
         label = payload.get('name') or payload.get('title') or str(n)
         title = json.dumps(payload, indent=2)
         style = style_map.get(ntype, {})

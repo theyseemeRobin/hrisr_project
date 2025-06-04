@@ -1,24 +1,24 @@
-from .knowledge_graph.graph import KnowledgeGraph
 from .gemini.gemini import Gemini
 from .gemini.gemini_functions import register_function
-from .knowledge_graph.graph_interface import GraphInterface
+from .knowledge_graph.retriever import Retriever
 
 
 class DementiaAgent:
 
-    def __init__(self, gemini: Gemini, graph_interface: GraphInterface):
+    def __init__(self, gemini: Gemini, retriever: Retriever):
         self.gemini = gemini
-        self.graph_interface = graph_interface
+        self.retriever = retriever
 
         # give gemini access to the graph interface
-        register_function(graph_interface.retrieve_information)
+        register_function(retriever.retrieve_information)
 
     def chat(self):
-        self.gemini.initialize_chat()
+        self.gemini.initialize_chat(self.retriever.get_initial_context())
         print(
             f"Starting conversation with Gemini model: {self.gemini.model}\n"
             f"To exit the conversation, type 'quit()'"
         )
+
         query = ""
         while query != "quit()":
             query = input("You: ")

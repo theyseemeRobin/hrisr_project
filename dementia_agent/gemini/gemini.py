@@ -30,10 +30,13 @@ class Gemini:
         self.chat = None
 
 
-    def initialize_chat(self):
+    def initialize_chat(self, chat_context: str = None):
         """
         Start a new chat with Gemini.
         """
+        if chat_context:
+            self.system_instruction += f"\n{chat_context}"
+
         self.tool_config = types.ToolConfig(
         )
         self.config = types.GenerateContentConfig(

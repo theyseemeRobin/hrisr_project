@@ -4,6 +4,12 @@ This project was part of the course ["Human Robot Interaction for Social Robots"
 at the University of Groningen. 
 
 ## Installation
+First, [install ollama](https://ollama.com/download), and pull the embedding model specified in
+[retriever.yaml](configs/agent/retriever/retriever.yaml). By default, it is all-minilm:
+```bash
+ollama pull all-minilm
+```
+
 ```bash
 pip install .
 ```

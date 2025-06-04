@@ -1,8 +1,6 @@
 import logging
 from typing import Protocol, runtime_checkable, Any, Union
 
-from dementia_agent.knowledge_graph.graph import retrieve_information
-
 AllowedParams = (int | float | bool | str | list['AllowedParams'] | dict[str, 'AllowedParams'])
 
 @runtime_checkable
@@ -68,23 +66,6 @@ def get_functions() -> list[GeminiFunction]:
         dict[str, GeminiFunction]: A dictionary of all registered functions.
     """
     return list(__FUNCTION_REGISTRY.values())
-
-
-@register_function
-def get_information(
-    description: str
-):
-    """
-    Retrieve information about the elder based on a query.
-
-    Args:
-        description (str): The description of the information to retrieve.
-
-    Returns:
-        str: The retrieved information.
-    """
-    info = retrieve_information(description)
-    return info
 
 
 @register_function
