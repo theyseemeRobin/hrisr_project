@@ -1,0 +1,7 @@
+_target_: dementia_agent.knowledge_graph.graph.EventData
+node_type: ${get_object:dementia_agent.knowledge_graph.graph.NodeType.EVENT}
+title: Medicine
+location: Living Room
+time: '09:00 AM'
+day: every day
+description: Taking mandatory medicine every morning in the living room to maintain health
