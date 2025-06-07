@@ -70,7 +70,8 @@ def visualize_graph(
             v,
             label=relation,
             title=relation,
-            font={'size': edge_font_size}
+            font={'size': edge_font_size},
+            smooth={'enabled': True, 'type': 'curvedCW', 'roundness': 0.2}
         )
 
     # Adjust layout distance
