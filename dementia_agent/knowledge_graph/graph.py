@@ -24,7 +24,7 @@ class NodeData:
         if misc is not None:
             data.update(misc)
 
-        misc_str = ', '.join(f"{k}: {v}" for k, v in data.items())
+        misc_str = '\n'.join(f"{k}: {v}." for k, v in data.items())
         return misc_str
 
 
@@ -78,16 +78,19 @@ class KnowledgeGraph:
             kg.connect(*connection)
         return kg
 
-    def nodes_as_text(self):
-        node_ids = self._graph.nodes
-        return {node_id: self.node_to_text(node_id) for node_id in node_ids}
+    def nodes_to_text(self, node_ids):
+        text = ""
+        for node_id in node_ids:
+            text += self.node_to_text(node_id) + "\n"
+        return text
 
     def node_to_text(self, node_id):
         text = self._graph.nodes[node_id]['data'].to_text()
-        text += '\n'
-        for neighbour_id, edges_data in self._graph.adj[node_id].items():
-            for edge_data in edges_data.values():
-                text += f"{edge_data['relation']} {neighbour_id}\n"
+        text += f"\n"
+        for other_id, edges_to_other in self._graph.adj[node_id].items():
+            for edge_idx, edge_data in edges_to_other.items():
+                relation = edge_data['relation']
+                text += f" {relation} {other_id}."
         return text
 
     def get_neighbors(self, source: str, max_distance: int =1):
