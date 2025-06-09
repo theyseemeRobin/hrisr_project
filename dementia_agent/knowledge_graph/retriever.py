@@ -1,8 +1,8 @@
 import logging
 import ollama
+from build.lib.dementia_agent.knowledge_graph.visualize import visualize_graph
+from dementia_agent.knowledge_graph.graph import KnowledgeGraph, NodeType, EventData, PersonData
 
-from dementia_agent.knowledge_graph.graph import KnowledgeGraph, NodeType
-import time
 
 def cosine_similarity(a, b):
   dot_product = sum([x * y for x, y in zip(a, b)])
@@ -128,3 +128,54 @@ class Retriever:
             info += f"Info on {matching_node}:\n{node_info}\n"
         logging.info(info)
         return info
+
+    def add_event(self, node_names: list[str], predicate: str, event: str, description: str, time: str, day: str, location: str)-> str:
+        """
+        Add an event to the elder's knowledge graph, every node_name participating must be one of the people in retrieve_nodes.
+        Always call retrieve_nodes before this function to check whether the node_name participating are in the list of node_name retrieved from retrieve_nodes.
+
+        Args:
+            node_names(list[str]): List of node names that participate in the event, every subject participating must be one of the people in retrieve_nodes.
+            predicate (str): The predicate (relation), e.g., "likes", "hasChild".
+            event (str): The event to be added.
+            description (str): The description of the event.
+            time (str): The time of the event.
+            day (str): The day of the event.
+            location (str): The location of the event.
+
+        Returns:
+            str: Feedback on success or failure.
+        """
+        try:
+            # Create event
+            if event not in self.knowledge_graph._graph:
+                self.knowledge_graph.add_event(event, event=EventData(
+                    title=event,
+                    description=description,
+                    time=time,
+                    day=day,
+                    location=location
+                ))
+
+            # Add connections
+            for node_name in node_names:
+                if node_name in self.knowledge_graph.get_nodes():
+                    self.knowledge_graph.connect(node_name, predicate, event)
+                    print("Added:", node_name, predicate, event)
+            visualize_graph(self.knowledge_graph)
+            return f"Successfully added {event} to the knowledge graph"
+
+        except Exception as e:
+            logging.exception(f"Failed to add event to knowledge graph: {e}")
+            print(f"Failed to add event to knowledge graph. node_names must be one of {self.retrieve_nodes()}")
+            return f"Failed to add event to knowledge graph. node_names must be one of {self.retrieve_nodes()}"
+
+    def retrieve_nodes(self) -> list[str]:
+        """
+        Return list of all existing nodes in the knowledge graph.
+
+        Returns:
+            list[str]: The list of existing nodes in the knowledge graph.
+        """
+        return self.knowledge_graph.get_nodes()
+

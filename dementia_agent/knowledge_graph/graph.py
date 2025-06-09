@@ -95,3 +95,6 @@ class KnowledgeGraph:
 
     def get_neighbors(self, source: str, max_distance: int =1):
         return list(nx.single_source_shortest_path_length(self._graph, source, cutoff=max_distance).keys())
+
+    def get_nodes(self):
+        return list(self._graph.nodes())

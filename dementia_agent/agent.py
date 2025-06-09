@@ -12,6 +12,8 @@ class DementiaAgent:
 
         # give gemini access to the graph interface
         register_function(retriever.retrieve_information)
+        register_function(retriever.add_event)
+        register_function(retriever.retrieve_nodes)
 
         self.initialized = False
         self.history = []
