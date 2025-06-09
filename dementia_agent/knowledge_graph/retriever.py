@@ -1,5 +1,6 @@
 import logging
 import ollama
+import time
 from build.lib.dementia_agent.knowledge_graph.visualize import visualize_graph
 from dementia_agent.knowledge_graph.graph import KnowledgeGraph, NodeType, EventData, PersonData
 
