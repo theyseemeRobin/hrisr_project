@@ -67,35 +67,42 @@ class Retriever:
         return list(zip(*sorted_nodes))[0][:top_n]
 
 
-    def get_initial_context(self) -> str:
+    def get_initial_context(
+            self,
+            time_str: str = "08:55",
+            day_str: str = "Monday",
+            location_str: str = "Living Room"
+    ) -> str:
         """
         Get the initial context of the knowledge graph. This includes the user information.
+
+        Args:
+            time_str (str): The current time in HH:MM format.
+            day_str (str): The current day of the week (e.g., Monday).
+            location_str (str): The location of the user.
 
         Returns:
             str: The initial context of the knowledge graph.
         """
-        current_time = time.strftime("%H:%M")
-        current_day = time.strftime("%A")
-        time_str = f"Current time: {current_time}, Current day: {current_day}"
-        override_time = get_yes_or_no(f"Override time and day ({time_str})?")
-        if override_time:
-            current_time = get_time("Enter the current time")
-            current_day = get_day("Enter the current day")
-            time_str = f"Current time: {current_time}, Current day: {current_day}"
-
-        location = "living room"
-        override_location = get_yes_or_no(f"Override location ({location})?")
-        if override_location:
-            location = input("Enter the current location: ").strip()
-        location_str = f"Current location: {location}"
+        try:
+            time.strptime(time_str, "%H:%M")
+        except Exception as e:
+            logging.error(f"Invalid time format: {time_str}. Expected HH:MM format.")
+            raise e
+        try:
+            time.strptime(day_str, "%A")
+        except Exception as e:
+            logging.error(f"Invalid day format: {day_str}. Expected a valid day of the week (e.g., Monday or monday).")
+            raise e
 
         logging.info("Retrieving initial context from knowledge graph.")
         node_ids = self.knowledge_graph.get_neighbors('user', max_distance=0)
         info = self.knowledge_graph.nodes_to_text(node_ids)
-        return (f"{time_str}\n"
-                f"{location_str}\n"
-                f"User information:\n{info}"
-                )
+        return (
+            f"{time_str}\n"
+            f"{location_str}\n"
+            f"User information:\n{info}"
+        )
 
     def retrieve_information(self, query: str, category: str = "") -> str:
         """
