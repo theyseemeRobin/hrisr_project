@@ -53,7 +53,7 @@ class DementiaAgent:
         )
 
         with gr.Blocks() as self.demo:
-            self.chatbot = gr.Chatbot(placeholder="<strong>Talk with R.O.B.</strong><br>your Social Robot Companion")
+            self.chatbot = gr.Chatbot(placeholder="<strong>Talk with R.O.B.</strong><br>your Social Robot Companion", type="messages")
 
             self.chat_interface = gr.ChatInterface(
                 fn=self._chat_fn,

@@ -1,14 +1,8 @@
 import logging
-import random
-import time
-
 import ollama
 
 from dementia_agent.knowledge_graph.graph import KnowledgeGraph, NodeType
 import time
-
-from dementia_agent.util import get_yes_or_no, get_day, get_time
-
 
 def cosine_similarity(a, b):
   dot_product = sum([x * y for x, y in zip(a, b)])
@@ -31,6 +25,7 @@ class Retriever:
         """
         self.knowledge_graph = knowledge_graph
         self.embedding_model = embedding_model
+        ollama.pull(embedding_model)
         self.retrieval_distance = retrieval_distance
         self.embeds = {}
 

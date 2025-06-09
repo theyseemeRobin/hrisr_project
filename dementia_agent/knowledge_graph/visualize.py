@@ -65,13 +65,28 @@ def visualize_graph(
     # Add edges with customizable font size
     for u, v, key, eattrs in graph._graph.edges(keys=True, data=True):
         relation = eattrs.get('relation')
+
+        # Check if either node is an event
+        u_type = graph._graph.nodes[u]['data'].node_type
+        v_type = graph._graph.nodes[v]['data'].node_type
+        is_event_edge = (u_type == NodeType.EVENT or v_type == NodeType.EVENT)
+
+        # Determine edge width
+        width = 2 if 'user' in (str(u), str(v)) else 0.7
+
+        edge_style = {
+            'color': '#FFA500',  # orange for event edges
+        } if is_event_edge else {}
+
         net.add_edge(
             u,
             v,
             label=relation,
             title=relation,
+            width=width,
             font={'size': edge_font_size},
-            smooth={'enabled': True, 'type': 'curvedCW', 'roundness': 0.2}
+            smooth={'enabled': True, 'type': 'curvedCW', 'roundness': 0.2},
+            **edge_style
         )
 
     # Adjust layout distance
