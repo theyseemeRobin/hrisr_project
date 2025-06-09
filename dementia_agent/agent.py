@@ -11,6 +11,8 @@ class DementiaAgent:
 
         # give gemini access to the graph interface
         register_function(retriever.retrieve_information)
+        register_function(retriever.add_event)
+        register_function(retriever.retrieve_nodes)
 
     def chat(self):
         self.gemini.initialize_chat(self.retriever.get_initial_context())
