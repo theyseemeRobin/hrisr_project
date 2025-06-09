@@ -3,3 +3,4 @@ defaults:
 
 _target_: dementia_agent.knowledge_graph.retriever.Retriever
 embedding_model: all-minilm
+retrieval_distance: 1

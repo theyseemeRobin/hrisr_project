@@ -43,11 +43,12 @@ class Gemini:
             system_instruction=self.system_instruction,
             tools=get_functions(),
             tool_config=self.tool_config,
-            temperature=0
+            temperature=0,
+
         )
         self.chat = self.client.chats.create(model=self.model, config=self.config)
 
-    def query(self, prompt: str) -> str:
+    def query(self, prompt: str, history: list[dict] = None) -> str:
         """
         Query the Gemini LLM model.
         Args:
@@ -57,4 +58,4 @@ class Gemini:
             str: The response.
         """
         response = self.chat.send_message(prompt)
-        return response
+        return response.text

@@ -1,0 +1,7 @@
+_target_: dementia_agent.knowledge_graph.graph.EventData
+title: Death of Arthur Doe
+location: 'Hospital'
+time: '4 years ago'
+day: 'Monday'
+description: The death of Arthur Doe , a traumatic experience for the family.
+node_type: ${get_object:dementia_agent.knowledge_graph.graph.NodeType.EVENT}

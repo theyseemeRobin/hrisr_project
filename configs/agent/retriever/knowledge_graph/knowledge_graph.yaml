@@ -1,20 +1,43 @@
 defaults:
     - people@people.john: john
     - people@people.jane: jane
+    - people@people.arthur: arthur
     - people@people.user: user
+    - people@people.nurse_nora: nurse_nora
     - events@events.morning_coffee: morning_coffee
+    - events@events.medicine: medicine
+    - events@events.death_of_arthur_doe: death_of_arthur_doe
 
 _target_ : dementia_agent.knowledge_graph.graph.KnowledgeGraph.from_config
 connections:
 
-    - [jane, participates_in, morning_coffee]
-    - [user, participates_in, morning_coffee]
-    - [morning_coffee, with, jane]
-
     - [jane, sister_of, john]
     - [john, brother_of, jane]
 
+
     - [user, mother_of, jane]
     - [jane, daughter_of, user]
-    - [user, father_of, john]
+
+    - [user, mother_of, john]
     - [john, son_of, user]
+
+    - [user, wife_of, arthur]
+    - [arthur, husband_of, user]
+
+    # Nurse Nora
+    - [nurse_nora, takes_care_of, user]
+    - [user, patient_of, nurse_nora]
+
+    # morning coffee
+    - [morning_coffee, with, jane]
+    - [jane, participates_in, morning_coffee]
+    - [morning_coffee, with, user]
+    - [user, participates_in, morning_coffee]
+
+    # medicine
+    - [medicine, with, nurse_nora]
+    - [nurse_nora, gives, medicine]
+
+    # arthur's death
+    - [arthur, died_in, death_of_arthur_doe]
+    - [death_of_arthur_doe, event_of, arthur]

@@ -10,6 +10,7 @@ First, [install ollama](https://ollama.com/download), and pull the embedding mod
 ollama pull all-minilm
 ```
 
+Then install the package
 ```bash
 pip install .
 ```

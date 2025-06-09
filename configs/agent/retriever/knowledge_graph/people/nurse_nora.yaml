@@ -1,6 +1,6 @@
 _target_: dementia_agent.knowledge_graph.graph.PersonData
-name: Margaret Doe
-age: 86
+name: Nora
+age: 31
 node_type: ${get_object:dementia_agent.knowledge_graph.graph.NodeType.PERSON}
 misc:
-    description: this is the user, an elder suffering from dementia.
+    description: Nora is one of the nurses working at the elderly care home.
