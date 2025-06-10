@@ -1,0 +1,6 @@
+_target_: dementia_agent.knowledge_graph.graph.PersonData
+name: Arthur Doe
+age: 59
+misc:
+    religion: atheist
+node_type: ${get_object:dementia_agent.knowledge_graph.graph.NodeType.PERSON}
